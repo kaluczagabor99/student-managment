@@ -68,11 +68,12 @@ public class StudentDao implements Dao {
         ResultSet rs = getStudentByIdPstmt.executeQuery();
         if (rs.next()) {
             student = new Student(
-                    rs.getString(1),
+                    rs.getInt(1),
                     rs.getString(2),
                     rs.getString(3),
                     rs.getString(4),
-                    rs.getString(5)
+                    rs.getString(5),
+                    rs.getString(6)
             );
         }
         return student;
@@ -90,7 +91,7 @@ public class StudentDao implements Dao {
         updateStudentPstmt.setString(2, student.getLastName());
         updateStudentPstmt.setString(3, student.getGender());
         updateStudentPstmt.setString(4, student.getCountryOfBirth());
-        updateStudentPstmt.setString(5, student.getDateOfBirth());
+        updateStudentPstmt.setDate(5, Date.valueOf(student.getDateOfBirth()));
 
         return updateStudentPstmt.executeUpdate();
     }
