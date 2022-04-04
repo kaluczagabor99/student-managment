@@ -1,8 +1,5 @@
 package hu.kaluczagabor.model;
 
-import java.time.LocalDate;
-import java.util.Date;
-
 public class Student {
 
     private int id;
@@ -34,34 +31,26 @@ public class Student {
 
     @Override
     public String toString() {
-        return  "id = " + id +
-                ", vezeteknev = " + firstName +
-                ", keresztnev = " + lastName +
-                ", nem = " + gender +
-                ", szuletesi hely = " + countryOfBirth +
-                ", szuletesi datum = " + dateOfBirth;
+        return String.format("id: %s, vezeteknev: %s, keresztnev: %s, nem: %s, szuletesi hely: %s, szuletesi datum: %s",
+                id, firstName, lastName, gender, countryOfBirth, dateOfBirth);
     }
 
     public int getId() {
         return id;
     }
-
     public String getFirstName() {
         return firstName;
     }
-
     public String getLastName() {
+
         return lastName;
     }
-
     public String getGender() {
         return gender;
     }
-
     public String getCountryOfBirth() {
         return countryOfBirth;
     }
-
     public String getDateOfBirth() {
         return dateOfBirth;
     }

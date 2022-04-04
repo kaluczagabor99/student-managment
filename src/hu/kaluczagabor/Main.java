@@ -63,16 +63,14 @@ public class Main {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    private static int getInput(Scanner sc) {
+    }private static int getInput(Scanner sc) {
         int input;
         System.out.println("Milyen muveletet szeretnel vegezni az adatbazison?");
         System.out.println("0 - osszes tanulo adatainak megjelenitese");
         System.out.println("1 - uj tanulo hozzaadasa (adatokat ekezetek nelkul erdemes megadni)");
         System.out.println("2 - meglevo tanulo torlese id alapjan");
         System.out.println("3 - meglevo tanulo modositasa");
-        System.out.println("4 - adatok importalasa CSV fajlba");
+        System.out.println("4 - osszes adat importalasa CSV fajlba");
         System.out.println("5 - kilepes");
         System.out.println();
         input = sc.nextInt();

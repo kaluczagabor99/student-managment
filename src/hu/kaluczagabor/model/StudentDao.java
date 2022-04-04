@@ -1,13 +1,11 @@
 package hu.kaluczagabor.model;
 
-import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class StudentDao implements Dao {
-    private static final String studentTable = "student";
-    private Connection conn;
+    private static final String STUDENT_TABLE = "student";
     private final PreparedStatement getAllStudentPstmt;
     private final PreparedStatement addStudentPstmt;
     private final PreparedStatement getStudentByIdPstmt;
@@ -16,19 +14,13 @@ public class StudentDao implements Dao {
 
 
     public StudentDao(Connection conn) throws SQLException {
-        this.conn = conn;
-
-        getAllStudentPstmt = conn.prepareStatement("SELECT * FROM " + studentTable);
-
+        getAllStudentPstmt = conn.prepareStatement("SELECT * FROM " + STUDENT_TABLE);
+        deleteStudentPstmt = conn.prepareStatement("DELETE FROM " + STUDENT_TABLE + " WHERE id = ?");
+        getStudentByIdPstmt = conn.prepareStatement("SELECT * FROM " + STUDENT_TABLE + " WHERE id = ?");
         addStudentPstmt = conn.prepareStatement(
-                "INSERT INTO " + studentTable + " (first_name,last_name,gender,country_of_birth,date_of_birth) VALUES (?,?,?,?,?)");
-
-        getStudentByIdPstmt = conn.prepareStatement("SELECT * FROM " + studentTable + " WHERE id = ?");
-
+                "INSERT INTO " + STUDENT_TABLE + " (first_name,last_name,gender,country_of_birth,date_of_birth) VALUES (?,?,?,?,?)");
         updateStudentPstmt = conn.prepareStatement(
-                "UPDATE " + studentTable + " SET first_name = ?, last_name = ?, gender = ?,country_of_birth = ?, date_of_birth = ?");
-
-        deleteStudentPstmt = conn.prepareStatement("DELETE FROM " + studentTable + " WHERE id = ?");
+                "UPDATE " + STUDENT_TABLE + " SET first_name = ?, last_name = ?, gender = ?,country_of_birth = ?, date_of_birth = ?");
     }
 
     @Override
@@ -53,7 +45,7 @@ public class StudentDao implements Dao {
     public int addStudent(Student student) throws SQLException {
         addStudentPstmt.setString(1, student.getFirstName());
         addStudentPstmt.setString(2, student.getLastName());
-        addStudentPstmt.setString(3, student.getGender());
+        addStudentPstmt.setString(3,   student.getGender());
         addStudentPstmt.setString(4, student.getCountryOfBirth());
         addStudentPstmt.setDate(5, Date.valueOf(student.getDateOfBirth()));
 
