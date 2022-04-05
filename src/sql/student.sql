@@ -9,6 +9,7 @@ CREATE TABLE student (
 
 INSERT INTO student (first_name, last_name, gender, country_of_birth,date_of_birth) VALUES
                     ('Bende','Attila','Ferfi','Magyarorszag','1977-01-12',);
+                    ('Bende','Attila','Ferfi','Magyarorszag','1977-01-12',);
 
 INSERT INTO student (first_name, last_name, gender, country_of_birth,date_of_birth) VALUES
                     ('Omar','Galvada','Ferfi','Afrika','1990-10-25');

@@ -5,19 +5,25 @@ import hu.kaluczagabor.model.GetDataFromUser;
 import hu.kaluczagabor.model.Student;
 import hu.kaluczagabor.model.StudentDao;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Properties;
 import java.util.Scanner;
 
 public class Main {
 
+    private static final String LOCATION =
+            "C:\\Users\\kaluczagabor\\IdeaProjects\\studentManagement\\src\\hu\\kaluczagabor\\resources\\JDBCSettings.properties";
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        try (Connection conn = DriverManager.getConnection(
-                "jdbc:postgresql://localhost:5432/test", "postgres", "153654")) {
+        try {
+            Connection conn = DriverManager.getConnection(initConfigFile()[0], initConfigFile()[1], initConfigFile()[2]);
             Dao model = new StudentDao(conn);
             List<Student> studentList = model.getAllStudent();
             int input;
@@ -63,7 +69,9 @@ public class Main {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }private static int getInput(Scanner sc) {
+    }
+
+    private static int getInput(Scanner sc) {
         int input;
         System.out.println("Milyen muveletet szeretnel vegezni az adatbazison?");
         System.out.println("0 - osszes tanulo adatainak megjelenitese");
@@ -75,6 +83,28 @@ public class Main {
         System.out.println();
         input = sc.nextInt();
         return input;
+    }
+
+    public static String[] initConfigFile() {
+        String[] propData = new String[3];
+        Properties properties = new Properties();
+        File conf = new File(LOCATION);
+        if (conf.exists() && conf.canRead()) {
+            try {
+                properties.load(new FileInputStream(conf));
+                String dbURL = properties.getProperty("db.conn.url");
+                String dbUserName = properties.getProperty("db.username");
+                String dbPassword = properties.getProperty("db.password");
+
+                propData[0] = dbURL;
+                propData[1] = dbUserName;
+                propData[2] = dbPassword;
+
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return propData;
     }
 }
 
