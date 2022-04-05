@@ -66,6 +66,7 @@ public class Main {
                     }
                 }
             } while (input != 5);
+            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
